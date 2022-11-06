@@ -1,10 +1,10 @@
 {
-  "name": "electron-vite-react",
+  "name": "customers-search-app",
   "productName": "Electron",
   "private": true,
   "version": "2.1.0",
-  "description": "Vite React Electron boilerplate.",
-  "author": "草鞋没号 <308487730@qq.com>",
+  "description": "App to search and get new clients",
+  "author": "Gonzalo Re",
   "license": "MIT",
   "main": "dist-electron/electron/main/index.js",
   "scripts": {
