@@ -15,6 +15,9 @@ process.env.PUBLIC = app.isPackaged ? process.env.DIST : join(process.env.DIST_E
 import { app, BrowserWindow, shell, ipcMain } from 'electron'
 import { release } from 'os'
 import { join } from 'path'
+import puppeteer from 'puppeteer'
+import { InitComponents } from '../components'
+import { sequelize } from '../components/config/sequelize-config'
 
 // Disable GPU Acceleration for Windows 7
 if (release().startsWith('6.1')) app.disableHardwareAcceleration()
@@ -64,7 +67,12 @@ async function createWindow() {
   })
 }
 
-app.whenReady().then(createWindow)
+(async () => {
+  await app.whenReady()
+  // await sequelize.authenticate()
+  await sequelize.sync({ force: true })
+  await createWindow()
+})()
 
 app.on('window-all-closed', () => {
   win = null
@@ -105,3 +113,5 @@ ipcMain.handle('open-win', (event, arg) => {
     // childWindow.webContents.openDevTools({ mode: "undocked", activate: true })
   }
 })
+
+InitComponents()
