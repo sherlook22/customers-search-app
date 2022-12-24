@@ -1,18 +1,24 @@
-import { Optional } from 'sequelize'
-import { Table, Model } from 'sequelize-typescript'
+import { BIGINT, Optional, STRING } from 'sequelize'
+import { Table, Model, Column, DataType, AutoIncrement, PrimaryKey } from 'sequelize-typescript'
 
-interface UserAttributes {
-  id: number
-  name: string
-  username: string
-  password: string
-  igUsername: string
-  igPassword: string
-}
-
-interface UserCreationAttributes extends Optional<UserAttributes, 'id'> {}
-
-@Table
-export class User extends Model<UserAttributes, UserCreationAttributes> {
-  
+@Table({
+  timestamps: false,
+  tableName: 'users'
+})
+export class User extends Model<any, any> {
+  @Column({
+    type: BIGINT,
+    primaryKey: true,
+    autoIncrement: true
+  })
+  id: number;
+  @Column({
+    type: STRING,
+    unique: true
+  })
+  username: string;
+  @Column({
+    type: STRING,
+  })
+  password: string;
 }
